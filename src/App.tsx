@@ -17,6 +17,13 @@ function App() {
     setInput("");
   }
 
+  const toggleTodo = (id: number) => {
+    const tgReasult = todos.map((todo) => {
+       return todo.id === id? {...todo, done: !todo.done}: todo
+    })
+      setTodos(tgReasult);
+  }
+
   return (
     <>
       <h1>Todo App</h1>
@@ -24,7 +31,10 @@ function App() {
       <button onClick={addTodo}>追加</button>
       <ul>
         {todos.map((todo) => {
-          return <li key={todo.id}>{todo.text}</li>
+          return <li key={todo.id}
+           onClick={() => toggleTodo(todo.id)}
+           style={{textDecoration: todo.done?  "line-through": "none"}}
+           >{todo.text}</li>
         })}
       </ul>
     </>
