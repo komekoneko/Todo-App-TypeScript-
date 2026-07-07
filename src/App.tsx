@@ -12,6 +12,9 @@ function App() {
   const [ input, setInput] = useState("");
 
   const addTodo = () => {
+    if(input === ""){
+      return alert("何か入力してください");
+    }
     const result = [...todos, { id: Date.now(), text: input, done: false }];
     setTodos(result);
     setInput("");
@@ -24,6 +27,13 @@ function App() {
       setTodos(tgReasult);
   }
 
+  const deleteTodo = (id: number) => {
+    const dlResult = todos.filter((todo) => {
+      return id !== todo.id;
+    })
+    setTodos(dlResult);
+  }
+
   return (
     <>
       <h1>Todo App</h1>
@@ -34,7 +44,7 @@ function App() {
           return <li key={todo.id}
            onClick={() => toggleTodo(todo.id)}
            style={{textDecoration: todo.done?  "line-through": "none"}}
-           >{todo.text}</li>
+           >{todo.text}<button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id)}}>削除</button></li>
         })}
       </ul>
     </>
