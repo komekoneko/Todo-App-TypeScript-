@@ -7,11 +7,14 @@ type Todo = {
   text: string,
   done: boolean
 }
+
+type Filter = "all" | "active" | "completed"
 function App() {
   const saved = localStorage.getItem("todos");
 
   const [ todos, setTodos ] = useState<Todo[]>(saved? JSON.parse(saved) : [])
   const [ input, setInput] = useState("");
+  const [filter, setFilter] = useState<Filter>("all")
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos))
@@ -40,13 +43,26 @@ function App() {
     setTodos(dlResult);
   }
 
+  const visibleTodos = todos.filter((todo) => {
+    if(filter === "all"){
+      return true
+    }else if(filter === "active"){
+      return !todo.done
+    }else {
+      return todo.done
+    }
+  })
+
   return (
     <>
       <h1>Todo App</h1>
       <input type="text" value={input} onChange={(e) => setInput(e.target.value)} />
       <button onClick={addTodo}>追加</button>
+      <button onClick={() => setFilter("all")} >all</button>
+      <button onClick={() => setFilter("active")}>active</button>
+      <button onClick={() => setFilter("completed")}>completed</button>
       <ul>
-        {todos.map((todo) => {
+        {visibleTodos.map((todo) => {
           return <li key={todo.id}
            onClick={() => toggleTodo(todo.id)}>
             <span style={{textDecoration: todo.done?  "line-through": "none"}}>{todo.text}</span>
