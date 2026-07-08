@@ -1,32 +1,68 @@
-# React + TypeScript + Vite
+# 📝 Todo App (TypeScript)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+シンプルで直感的な Todo 管理 Web アプリです！TypeScript で型安全に実装しています。
 
-Currently, two official plugins are available:
+🔗 デモ: https://todo-app-type-script-chi.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ 機能
 
-## React Compiler
+- 入力欄に書いてボタンひとつで Todo を追加
+- 空のまま追加しようとすると警告（入力バリデーション）
+- Todo をクリックで完了 / 未完了を切り替え（取り消し線で表示）
+- 各 Todo を個別に削除
+- localStorage に自動保存（リロードしてもデータが残る）
+- `key` にインデックスではなく一意の ID（`Date.now()`）を使用
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🛠 技術スタック
 
-## Expanding the Oxlint configuration
+| 項目 | 内容 |
+| --- | --- |
+| フレームワーク | React |
+| 言語 | TypeScript |
+| ビルドツール | Vite |
+| スタイリング | CSS |
+| 状態管理 | useState / useEffect |
+| デプロイ | Vercel |
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## 🚀 ローカルで動かす
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```bash
+git clone https://github.com/your-username/todo-app.git
+cd todo-app
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+ブラウザで http://localhost:5173 を開く。
+
+## 📁 ディレクトリ構成
+
+```
+todo-app/
+├── public
+├── src
+│   ├── App.tsx
+│   ├── App.css
+│   └── main.tsx
+├── index.html
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
+```
+
+## 💡 実装のポイント
+
+- `type Todo` で「id・text・done」の形を型定義し、扱うデータの形を保証
+- `useState` で入力値（input）と Todo 配列（todos）を管理
+- `useEffect` で todos の変更を検知し、localStorage へ自動保存
+- 起動時に localStorage から読み込み、初期値として復元
+- 完了状態の切り替えは `map` で対象の `done` を反転（スプレッド構文で不変更新）
+- 削除は `filter` で対象 id 以外を残して実装
+- 削除ボタンは `stopPropagation` で、親要素のクリック（完了切り替え）と分離
+
+## 🔧 今後の改善案
+
+- 編集機能
+- 完了 / 未完了でのフィルタリング
+- 残りタスク件数の表示
+- Enter キーでの追加
