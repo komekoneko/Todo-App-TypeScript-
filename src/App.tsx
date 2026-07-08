@@ -42,9 +42,9 @@ function App() {
       <ul>
         {todos.map((todo) => {
           return <li key={todo.id}
-           onClick={() => toggleTodo(todo.id)}
-           style={{textDecoration: todo.done?  "line-through": "none"}}
-           >{todo.text}<button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id)}}>削除</button></li>
+           onClick={() => toggleTodo(todo.id)}>
+            <span style={{textDecoration: todo.done?  "line-through": "none"}}>{todo.text}</span>
+            <button onClick={(e) => { e.stopPropagation(); deleteTodo(todo.id)}}>削除</button></li>
         })}
       </ul>
     </>
