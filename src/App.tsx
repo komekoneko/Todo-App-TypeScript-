@@ -1,5 +1,5 @@
 import './App.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 
 type Todo = {
@@ -8,8 +8,14 @@ type Todo = {
   done: boolean
 }
 function App() {
-  const [ todos, setTodos ] = useState<Todo[]>([])
+  const saved = localStorage.getItem("todos");
+
+  const [ todos, setTodos ] = useState<Todo[]>(saved? JSON.parse(saved) : [])
   const [ input, setInput] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos))
+  }, [todos])
 
   const addTodo = () => {
     if(input === ""){
