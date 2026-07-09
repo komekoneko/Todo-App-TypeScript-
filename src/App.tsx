@@ -52,13 +52,21 @@ function App() {
     }
   });
 
+  const enterFn = (e: React.KeyboardEvent) => {
+    if(e.key === "Enter"){
+      addTodo()
+    }
+  }
+
   return (
     <>
       <h1>Todo App</h1>
       <input
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={(e) => setInput(e.target.value)
+        }
+        onKeyDown={(e) => enterFn(e)}
       />
       <button onClick={addTodo}>追加</button>
       <div className="filters">
