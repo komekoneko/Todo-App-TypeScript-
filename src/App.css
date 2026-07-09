@@ -84,3 +84,24 @@ li button:hover {
   background: #dc2626;
 }
 
+.filters {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.filters button {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background: #fff;
+  color: #475569;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.filters button:hover {
+  background: #f1f5f9;
+}
